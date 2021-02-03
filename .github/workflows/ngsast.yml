@@ -19,7 +19,7 @@ jobs:
     - name: Android build
       run: |
         chmod +x gradlew
-        ./gradlew bundle
+        ./gradlew assembleDebug
     - name: Download ShiftLeft cli
       run: |
         curl https://cdn.shiftleft.io/download/sl > ${GITHUB_WORKSPACE}/sl && chmod a+rx ${GITHUB_WORKSPACE}/sl
