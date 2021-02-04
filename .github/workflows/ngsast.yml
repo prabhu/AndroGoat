@@ -20,6 +20,11 @@ jobs:
       run: |
         chmod +x gradlew
         ./gradlew assembleDebug
+    - name: Prepare apk
+      run: |
+        curl "https://github.com/pxb1988/dex2jar/files/1867564/dex-tools-2.1-SNAPSHOT.zip" > ${GITHUB_WORKSPACE}/dex-tools.zip
+        unzip ${GITHUB_WORKSPACE}/dex-tools.zip
+        sh ${GITHUB_WORKSPACE}/dex-tools-2.1-SNAPSHOT/d2j-dex2jar.sh ./app/build/outputs/apk/debug/app-debug.apk -o ./app/build/outputs/apk/debug/app-debug.jar
     - name: Download ShiftLeft cli
       run: |
         curl https://cdn.shiftleft.io/download/sl > ${GITHUB_WORKSPACE}/sl && chmod a+rx ${GITHUB_WORKSPACE}/sl
@@ -29,6 +34,6 @@ jobs:
       id: extract_branch
     - name: Build and Analyze
       run: |
-          ${GITHUB_WORKSPACE}/sl analyze --wait --app androgoat --tag app.group=kt-test --tag branch=${{ github.head_ref || steps.extract_branch.outputs.branch }} --java --cpg ./app/build/outputs/apk/debug/app-debug.apk
+          ${GITHUB_WORKSPACE}/sl analyze --wait --app androgoat --tag app.group=kt-test --tag branch=${{ github.head_ref || steps.extract_branch.outputs.branch }} --java --cpg ./app/build/outputs/apk/debug/app-debug.jar
       env:
         SHIFTLEFT_ACCESS_TOKEN: ${{ secrets.SHIFTLEFT_ACCESS_TOKEN }}
