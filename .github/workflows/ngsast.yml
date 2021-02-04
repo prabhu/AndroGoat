@@ -22,9 +22,9 @@ jobs:
         ./gradlew assembleDebug
     - name: Prepare apk
       run: |
-        curl "https://github.com/pxb1988/dex2jar/files/1867564/dex-tools-2.1-SNAPSHOT.zip" > ${GITHUB_WORKSPACE}/dex-tools.zip
-        unzip ${GITHUB_WORKSPACE}/dex-tools.zip
-        sh ${GITHUB_WORKSPACE}/dex-tools-2.1-SNAPSHOT/d2j-dex2jar.sh ./app/build/outputs/apk/debug/app-debug.apk -o ./app/build/outputs/apk/debug/app-debug.jar
+        curl -LO "https://github.com/pxb1988/dex2jar/files/1867564/dex-tools-2.1-SNAPSHOT.zip"
+        unzip dex-tools-2.1-SNAPSHOT.zip
+        sh dex-tools-2.1-SNAPSHOT/d2j-dex2jar.sh ./app/build/outputs/apk/debug/app-debug.apk -o ./app/build/outputs/apk/debug/app-debug.jar
     - name: Download ShiftLeft cli
       run: |
         curl https://cdn.shiftleft.io/download/sl > ${GITHUB_WORKSPACE}/sl && chmod a+rx ${GITHUB_WORKSPACE}/sl
